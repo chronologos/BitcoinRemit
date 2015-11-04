@@ -13,9 +13,11 @@
   "author": "Ian Tay <yiyantay@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "async": "^1.5.0",
     "coinbase": "^2.0.0",
     "dotenv": "^1.2.0",
     "express": "^4.13.3",
+    "jade": "^1.11.0",
     "lodash": "^3.10.1"
   }
 }

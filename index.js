@@ -1,8 +1,10 @@
 "use strict";
-var dotenv = require('dotenv');
+var dotenv = require('dotenv'),
+  async = require('async');
 dotenv.load();
-var Client = require('coinbase').Client;
 
+// COINBASE API ACCESS
+var Client = require('coinbase').Client;
 var client = new Client({
   'apiKey': process.env.API_ID,
   'apiSecret': process.env.API_SECRET,
@@ -10,13 +12,44 @@ var client = new Client({
   'tokenUri': 'https://api.sandbox.coinbase.com/oauth/token'
 });
 
-client.getAccounts({}, function(err, accounts) {
-  accounts.forEach(function(acct) {
-    console.log(acct.name + ': ' + acct.balance.amount + ' ' + acct.balance.currency);
-    acct.getTransactions(null, function(err, txns) {
-      txns.forEach(function(txn) {
-        console.log('txn: ' + txn.id);
+// EXPRESS CONFIG
+var express = require('express');
+var app = express();
+app.engine('jade', require('jade').__express);
+app.use(express.static(__dirname + '/public'));
+
+// ROUTES
+app.get('/', function(req, res) {
+  res.render('index.jade');
+});
+
+app.get('/api/getAccounts', function(req, res) {
+  var accountData = [];
+  client.getAccounts({}, function(err, accounts) {
+    var thisAcct;
+    accounts.forEach(function(acct) {
+      thisAcct = {};
+      thisAcct = {
+        name: acct.name,
+        balance: acct.balance.amount,
+        currency: acct.balance.currency,
+        transactions: []
+      };
+      acct.getTransactions(null, function(err, txns) {
+        txns.forEach(function(txn) {
+          thisAcct.transactions.push(txn.id);
+          accountData.push(thisAcct);
+
+          // console.log(txn.id);
+          // console.log(thisAcct);
+          // console.log(thisAcct.transactions);
+          console.log(accountData);
+
+        });
+        res.json(accountData);
       });
     });
   });
+
 });
+app.listen(3000);
