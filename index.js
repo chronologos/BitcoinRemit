@@ -1,6 +1,5 @@
 "use strict";
-var dotenv = require('dotenv'),
-  async = require('async');
+var dotenv = require('dotenv');
 dotenv.load();
 
 // COINBASE API ACCESS
@@ -17,6 +16,11 @@ var express = require('express');
 var app = express();
 app.engine('jade', require('jade').__express);
 app.use(express.static(__dirname + '/public'));
+var bodyParser = require('body-parser');
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({
+  extended: true
+})); // for parsing application/x-www-form-urlencoded
 
 // ROUTES
 app.get('/', function(req, res) {
@@ -52,4 +56,11 @@ app.get('/api/getAccounts', function(req, res) {
   });
 
 });
+
+app.post('/api/remit',
+  function(req, res) {
+    console.log(req.body);
+    res.json(req.body);
+  }
+);
 app.listen(3000);

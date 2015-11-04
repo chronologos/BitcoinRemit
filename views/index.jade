@@ -15,5 +15,15 @@ html(lang="en" data-ng-app="bitcoinRemit")
     div.section.hero(data-ng-controller="accountController")
       div.container
         h2 BitcoinRemit  
-        h3 {{account.name}}
-        button {{account.balance | currency : "BTC "}}
+        h3 {{account.name}}, Balance: {{account.balance | currency : "BTC "}}
+        form(action="/api/remit" method="post")
+          div.row
+            div.six.columns
+              label(for="walletAddress") Wallet Address
+              input.u-full-width#walletAddress(type="text" name="walletAddress")
+            div.six.columns 
+              label(for="remitAmt") Remittance amount
+              input.u-full-width#remitAmt(type="text" name="remitAmt")
+          input.button-primary(type="submit",value="Remit!")
+
+        

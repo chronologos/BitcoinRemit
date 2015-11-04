@@ -1,7 +1,8 @@
 {
   "name": "bitcoinremit",
   "version": "1.0.0",
-  "description": "",
+  "repository": "https://github.com/chronologos/BitcoinRemit",
+  "description": "App for remitting bc using raspberry pi",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -13,7 +14,7 @@
   "author": "Ian Tay <yiyantay@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "async": "^1.5.0",
+    "body-parser": "^1.14.1",
     "coinbase": "^2.0.0",
     "dotenv": "^1.2.0",
     "express": "^4.13.3",
