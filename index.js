@@ -21,7 +21,6 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({
   extended: true
 })); // for parsing application/x-www-form-urlencoded
-app.listen(3000);
 
 // ROUTES
 app.get('/', function(req, res) {
@@ -64,3 +63,4 @@ app.post('/api/remit',
     res.json(req.body); // requires bodyParser to work
   }
 );
+app.listen(3000);
