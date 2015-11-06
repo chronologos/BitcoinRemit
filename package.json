@@ -17,6 +17,7 @@
   "author": "Ian Tay <yiyantay@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "async": "^1.5.0",
     "body-parser": "^1.14.1",
     "coinbase": "^2.0.0",
     "dotenv": "^1.2.0",
